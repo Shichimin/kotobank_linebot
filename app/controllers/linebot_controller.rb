@@ -26,7 +26,7 @@ class LinebotController < ApplicationController
       elements = page.search('ex cf')
 
       # 概要を返す
-      response = page
+      response = "hoge"
 
       case event
       # メッセージが送信された場合
