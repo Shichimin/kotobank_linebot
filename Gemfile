@@ -55,3 +55,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'mechanize'
 gem 'line-bot-api'
+
+group :production do
+  gem 'rails_12factor'
+end
