@@ -1,5 +1,6 @@
 class LinebotController < ApplicationController
   require 'line/bot'
+  require 'mechanize'
 
   # callbackアクションのCSRFトークン認証を無効
   protect_from_forgery :except => [:callback]
