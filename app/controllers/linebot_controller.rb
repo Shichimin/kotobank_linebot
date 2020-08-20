@@ -37,8 +37,11 @@ class LinebotController < ApplicationController
       if page.search('.dictype.cf.daijisen').present?
         # デジタル大辞泉の項目が存在する場合の処理
         elements = page.search('.dictype.cf.daijisen .description')
+      elsif
+        # デジタル大辞泉プラスの項目が存在する場合の処理
+        elements = page.search('.dictype.cf.js-contain-ad.daijisenplus" .description')
       else
-        # デジタル大辞泉の項目が存在しない場合の処理
+        # デジタル大辞泉とデジタル大辞泉プラスの項目が存在しない場合の処理
         elements = page.search('.description')
       end
 
