@@ -43,7 +43,7 @@ class LinebotController < ApplicationController
       end
 
       # 概要を返す
-      response = elements.inner_text
+      response = elements.inner_text.gsub(/(\s|　)+/, '')
 
       case event
       # メッセージが送信された場合
