@@ -34,7 +34,7 @@ class LinebotController < ApplicationController
       page = agent.get("https://kotobank.jp/word/#{word}")
 
       # 要素を取得
-      elements = page.search('dictype cf  daijien ex cf description')
+      elements = page.search("section[href^='/dictype cf  daijisen/']")
 
       # 概要を返す
       response = elements
