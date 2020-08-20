@@ -34,7 +34,13 @@ class LinebotController < ApplicationController
       page = agent.get("https://kotobank.jp/word/#{word}")
 
       # 要素を取得
-      elements = page.search('.dictype.cf.daijisen')
+      if page.search('.dictype.cf.daijisen').present?
+        # デジタル大辞林の項目が存在する場合
+        elements = @page.search('.dictype.cf.daijisen')
+      else
+        # デジタル大辞林の項目が存在しない場合
+        elements = @page.search('.description')
+      end
 
       # 概要を返す
       response = elements.inner_text
