@@ -35,11 +35,11 @@ class LinebotController < ApplicationController
 
       # 要素を取得
       if page.search('.dictype.cf.daijisen').present?
-        # デジタル大辞林の項目が存在する場合
-        elements = @page.search('.dictype.cf.daijisen')
+        # デジタル大辞林の項目が存在する場合の処理
+        elements = page.search('.dictype.cf.daijisen .description')
       else
-        # デジタル大辞林の項目が存在しない場合
-        elements = @page.search('.description')
+        # デジタル大辞林の項目が存在しない場合の処理
+        elements = page.search('.description')
       end
 
       # 概要を返す
