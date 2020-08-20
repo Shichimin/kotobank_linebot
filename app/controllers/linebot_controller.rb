@@ -34,10 +34,10 @@ class LinebotController < ApplicationController
       page = agent.get("https://kotobank.jp/word/#{word}")
 
       # 要素を取得
-      elements = page.search("section[href^='/dictype cf  daijisen/']")
+      elements = page.search('.dictype.cf.daijisen')
 
       # 概要を返す
-      response = elements
+      response = elements.inner_text
 
       case event
       # メッセージが送信された場合
