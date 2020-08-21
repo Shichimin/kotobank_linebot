@@ -38,21 +38,18 @@ class LinebotController < ApplicationController
         # 要素を取得
         if page.search('.dictype.cf.daijisen').present?
           # デジタル大辞泉の項目が存在する場合の処理
-          elements = page.search('.dictype.cf.daijisen .description')
+          response = page.search('.dictype.cf.daijisen .description').inner_text.gsub(/(\s|　)+/, '')
         elsif page.search('.dictype.cf.js-contain-ad.daijisenplus').present?
           # デジタル大辞泉プラスの項目が存在する場合の処理
-          elements = page.search('.dictype.cf.js-contain-ad.daijisenplus .description')
+          response = page.search('.dictype.cf.js-contain-ad.daijisenplus .description').inner_text.gsub(/(\s|　)+/, '')
         else
           # デジタル大辞泉とデジタル大辞泉プラスの項目が存在しない場合の処理
-          elements = page.search('.description')
+          response = page.search('.description').inner_text.gsub(/(\s|　)+/, '')
         end
       # 取得に失敗した場合の処理
       rescue Mechanize::ResponseCodeError => e
-        elements = "見つかりませんでした！"
+        response = "見つかりませんでした！"
       end
-
-      # 概要を返す
-      response = elements.inner_text.gsub(/(\s|　)+/, '')
 
       case event
       # メッセージが送信された場合
