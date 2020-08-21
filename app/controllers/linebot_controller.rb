@@ -30,19 +30,25 @@ class LinebotController < ApplicationController
         agent = Mechanize.new
       end
 
-      # ページのHTMLを取得
-      page = agent.get("https://kotobank.jp/word/#{word}")
+      # 取得に成功した場合の処理
+      begin
+        # ページのHTMLを取得
+        page = agent.get("https://kotobank.jp/word/#{word}")
 
-      # 要素を取得
-      if page.search('.dictype.cf.daijisen').present?
-        # デジタル大辞泉の項目が存在する場合の処理
-        elements = page.search('.dictype.cf.daijisen .description')
-      elsif page.search('.dictype.cf.js-contain-ad.daijisenplus').present?
-        # デジタル大辞泉プラスの項目が存在する場合の処理
-        elements = page.search('.dictype.cf.js-contain-ad.daijisenplus .description')
-      else
-        # デジタル大辞泉とデジタル大辞泉プラスの項目が存在しない場合の処理
-        elements = page.search('.description')
+        # 要素を取得
+        if page.search('.dictype.cf.daijisen').present?
+          # デジタル大辞泉の項目が存在する場合の処理
+          elements = page.search('.dictype.cf.daijisen .description')
+        elsif page.search('.dictype.cf.js-contain-ad.daijisenplus').present?
+          # デジタル大辞泉プラスの項目が存在する場合の処理
+          elements = page.search('.dictype.cf.js-contain-ad.daijisenplus .description')
+        else
+          # デジタル大辞泉とデジタル大辞泉プラスの項目が存在しない場合の処理
+          elements = page.search('.description')
+        end
+      # 取得に失敗した場合の処理
+      rescue Mechanize::ResponseCodeError => e
+        elements = "見つかりませんでした！"
       end
 
       # 概要を返す
