@@ -44,7 +44,7 @@ class LinebotController < ApplicationController
           response = page.search('.dictype.cf.js-contain-ad.daijisenplus .description').inner_text.gsub(/(\s|　)+/, '')
         else
           # デジタル大辞泉とデジタル大辞泉プラスの項目が存在しない場合の処理
-          response = page.search('.description').inner_text.gsub(/(\s|　)+/, '')
+          response = page.search('.description')[0].inner_text.gsub(/(\s|　)+/, '')
         end
       # 取得に失敗した場合の処理
       rescue Mechanize::ResponseCodeError => e
